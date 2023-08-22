@@ -1,0 +1,475 @@
+openapi: 3.0.2
+info:
+  title: Car Rental API
+  version: 1.2.0
+  description: A simple Car Rental API using Flask-RESTX
+servers:
+  - url: http://195.148.21.89:5000/api/
+  - url: http://127.0.0.1:5000/api/
+paths:
+  /cars/:
+    get:
+      summary: Get a list of cars
+      operationId: get_car_list
+      responses:
+        200:
+          description: List of cars
+          content:
+            application/vnd.mason+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+    post:
+      summary: Create a new car
+      operationId: create_car
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        201:
+          description: Car created successfully
+        400:
+          description: Bad request
+
+  /car/{car_id}:
+    get:
+      summary: Get a car by ID
+      operationId: get_car_by_id
+      parameters:
+        - in: path
+          name: car_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the car
+      responses:
+        200:
+          description: Car details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        404:
+          description: Car not
+    delete:
+      summary: Get a car by ID
+      operationId: delete_car_by_id
+      parameters:
+        - in: path
+          name: car_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the car
+      responses:
+        204:
+          description: Car deleted
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        404:
+          description: Car not found
+    put:
+      summary: updates a  car
+      operationId: update_car
+      parameters:
+        - in: path
+          name: car_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the car
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        204:
+          description: Car updated successfully
+        415:
+          description: Bad request
+
+
+  /customer/:
+    get:
+      summary: Get a list of customers
+      operationId: get_customer_list
+      responses:
+        200:
+          description: List of customer
+          content:
+            application/vnd.mason+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+    post:
+      summary: Create a new customer
+      operationId: create_customer
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        201:
+          description: Customer created successfully
+        400:
+          description: Bad request
+
+  /customer/{customer_id}:
+    get:
+      summary: Get a customer by ID
+      operationId: get_customer_by_id
+      parameters:
+        - in: path
+          name: customer_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      responses:
+        200:
+          description: Customer details details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          description: Customer not found
+    delete:
+      summary: delete a customer by ID
+      operationId: delete_customer_by_id
+      parameters:
+        - in: path
+          name: customer_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      responses:
+        204:
+          description: Customer Deleted
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          description: Customer not found
+    put:
+      summary: updates a customer
+      operationId: update_customer
+      parameters:
+        - in: path
+          name: customer_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        204:
+          description: Customer updated successfully
+        400:
+          description: Bad request
+
+  /customer/cars/{customer_id}:
+    get:
+      summary: Get a car rented by customer
+      operationId: get_rented_cars_by_customer
+      parameters:
+        - in: path
+          name: customer_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      responses:
+        200:
+          description: Customer rented cars details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          description: Customer rented cars not found
+  /rental/:
+    get:
+      summary: Get a list of rented cars
+      operationId: get_rented_car_list
+      responses:
+        200:
+          description: List of rented cars
+          content:
+            application/vnd.mason+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rental'
+    post:
+      summary: Create a new rental car record
+      operationId: create_rental_car
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Rental'
+      responses:
+        201:
+          description: Rental Car created successfully
+        400:
+          description: Bad request
+
+  /rental/{rental_id}:
+    get:
+      summary: Get a car rented by rental id
+      operationId: get_rented_car_rented_by_id
+      parameters:
+        - in: path
+          name: rental_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      responses:
+        200:
+          description: Customer rented cars details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        404:
+          description: Customer rented cars not found
+    put:
+      summary: updates a rental
+      operationId: update_rental
+      parameters:
+        - in: path
+          name: rental_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the rental
+      requestBody:
+        content:
+          application/vnd.mason+json:
+            schema:
+              $ref: '#/components/schemas/Rental'
+      responses:
+        204:
+          description: rental updated successfully
+        400:
+          description: Bad request
+  /rental/{car_id}:
+    get:
+      summary: Get a car rented status by car id
+      operationId: get_rented_car_status_by_id
+      parameters:
+        - in: path
+          name: car_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+      responses:
+        200:
+          description: Customer rented cars details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Rental'
+        404:
+          description: Customer rented cars not found
+
+  /car/{car_id}/{customer_id}:
+    get:
+      summary: Get a car details of customer by specific id
+      operationId: get_cary_id
+      parameters:
+        - in: path
+          name: car_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+        - in: path
+          name: customer_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the customer
+
+      responses:
+        200:
+          description: Customer rented cars details
+          content:
+            application/vnd.mason+json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        404:
+          description: Customer rented cars not found
+
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Car ID
+        name:
+          type: string
+          description: Car name
+        rent_price:
+          type: number
+          description: Car rent price
+        year:
+          type: integer
+          description: Car year
+        model:
+          type: string
+          description: Car model
+        engine_number:
+          type: string
+          description: Car engine number
+        cylinder_count:
+          type: string
+          description: Car cylinder count
+        body_color:
+          type: string
+          description: Car body color
+        mfg_year:
+          type: string
+          description: Car manufacturing year
+        seating_capacity:
+          type: string
+          description: Car seating capacity
+        horse_power_cc:
+          type: string
+          description: Car horse power in cc
+        maker_name:
+          type: string
+          description: Car maker name
+      required:
+        - id
+        - name
+        - rent_price
+        - year
+        - model
+        - engine_number
+        - cylinder_count
+        - body_color
+        - mfg_year
+        - seating_capacity
+        - horse_power_cc
+        - maker_name
+      example:
+        id: 0
+        name: "string"
+        rent_price: 0
+        year: 0
+        model: "string"
+        engine_number: "string"
+        cylinder_count: "string"
+        body_color: "string"
+        mfg_year: "string"
+        seating_capacity: "string"
+        horse_power_cc: "string"
+        maker_name: "string"
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Customer ID
+        name:
+          type: string
+          description: Customer name
+        surname:
+          type: string
+          description: Customer surname
+        address:
+          type: string
+          description: Customer address
+        phone:
+          type: string
+          description: Customer phone
+        registration_date:
+          type: string
+          description: Customer registration date
+        car_id:
+          type: integer
+          description: Customer car id
+        email:
+          type: string
+          description: Customer email
+      required:
+        - id
+        - name
+        - surname
+        - address
+        - phone
+        - registration_date
+        - car_id
+        - email
+      example:
+        id: 0
+        name: "string"
+        surname: "string"
+        address: "string"
+        phone: "string"
+        registration_date: "string"
+        car_id: 0
+        email: "string"
+    Rental:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Car ID
+        car_id:
+          type: integer
+          description: Car id
+        customer_id:
+          type: integer
+          description: Customer id
+        status:
+          type: string
+          description: Car status
+        from_date:
+          type: string
+          description: starting date
+        to_date:
+          type: string
+          description: end date
+        available_from:
+          type: string
+          description: car available date
+
+      required:
+        - id
+        - car_id
+        - customer_id
+        - status
+        - from_date
+        - to_date
+        - available_from
+      example:
+        id: 0
+        car_id: 0
+        customer_id: 0
+        status: "string"
+        from_date: "string"
+        to_date: "string"
+        available_from: "string"
+
+
